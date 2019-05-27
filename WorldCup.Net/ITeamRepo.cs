@@ -8,8 +8,9 @@ namespace WorldCup.Net
 {
     public interface ITeamRepo
     {
-        string Target { get; set; }
-        Task<IList<Team>> FetchTeamsAsync();
-        
+        string TeamFifaDataTarget { get; set; }
+        string TeamMatchesDataURL { get; set; }
+        Task<IList<TeamFifaData>> FetchTeamsAsync();
+        Task<IList<TeamMatchesData>> FetchTeamMatchesDataAsyc(string FifaCode);
     }
 }

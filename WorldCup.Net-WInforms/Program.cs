@@ -16,6 +16,20 @@ namespace WorldCup.Net_WInforms
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            Application.SetCompatibleTextRenderingDefault(false);
+            switch (MessageBox.Show(
+                   "Press 'Yes' for English, 'No' for Croatian.",
+                   "Language Option", MessageBoxButtons.YesNo))
+            {
+                case System.Windows.Forms.DialogResult.Yes:
+                    System.Threading.Thread.CurrentThread.CurrentUICulture =
+                        System.Globalization.CultureInfo.CreateSpecificCulture("");
+                    break;
+                case System.Windows.Forms.DialogResult.No:
+                    System.Threading.Thread.CurrentThread.CurrentUICulture =
+                        System.Globalization.CultureInfo.CreateSpecificCulture("hr");
+                    break;
+            }
             Application.Run(new Form1());
         }
     }

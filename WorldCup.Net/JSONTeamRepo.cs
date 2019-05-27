@@ -4,28 +4,52 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RestSharp;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace WorldCup.Net
 {
     class JSONTeamRepo : ITeamRepo
     {
-        public string Target { get; set; }
         RestSharp.RestClient client;
-        public async Task<IList<Team>> FetchTeamsAsync()
+
+        public string TeamFifaDataTarget { get; set; } = "http://worldcup.sfg.io/teams/results";
+        public string TeamMatchesDataURL { get; set; } = "http://worldcup.sfg.io/matches/country?fifa_code=";
+
+        public async Task<IList<TeamFifaData>> FetchTeamsAsync()
         {
 
-            if (Target != String.Empty)
+            if (TeamFifaDataTarget != String.Empty)
             {
-                client = new RestClient(Target);
+                client = new RestClient(TeamFifaDataTarget);
             }
             else
             {
                 throw new Exception("Target not determined!");
             }
-            var response =await client.ExecuteTaskAsync<List<Team>>(new RestRequest());
+            var request = new RestRequest();
+            var response =await client.ExecuteTaskAsync<List<TeamFifaData>>(request);
 
             return response.Data;
             
         }
+        public async Task<IList<TeamMatchesData>> FetchTeamMatchesDataAsyc(string FifaCode)
+        {
+            if (TeamMatchesDataURL != String.Empty)
+            {
+                var AimedTarget = TeamMatchesDataURL + FifaCode;
+                client = new RestClient(AimedTarget);
+            }
+            else
+            {
+                throw new Exception("Target not determined!");
+            }
+            var request = new RestRequest();
+            var response = await client.ExecuteTaskAsync(request);
+            IList<TeamMatchesData> deser = await  Task.Run(() =>Newtonsoft.Json.JsonConvert.DeserializeObject<IList<TeamMatchesData>>(response.Content));
+            return deser;
+        }
+
+      
     }
 }

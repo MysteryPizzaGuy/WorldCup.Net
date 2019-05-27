@@ -13,22 +13,27 @@ namespace WorldCup.Net_WInforms
 {
     public partial class Form1 : Form
     {
+        ITeamRepo repo;
         public Form1()
         {
             InitializeComponent();
+            repo= RepoFactory.GenerateRepo(); 
         }
 
         private async void btnLoad_ClickAsync(object sender, EventArgs e)
         {
-            ITeamRepo repo = RepoFactory.GenerateRepo();
-            repo.Target = "http://worldcup.sfg.io/teams/results";
             var ListofTeams = await repo.FetchTeamsAsync();
-            ListofTeams.ToList().ForEach(x => TeamList.Items.Add(x.Country));
+            TeamList.DataSource = ListofTeams;
+
         }
 
-        private void txtMaster_TextChanged(object sender, EventArgs e)
+
+
+        private async void btnGetInfo_ClickAsync(object sender, EventArgs e)
         {
-            lblClone.Text = txtMaster.Text;
+            string FifaCode = (TeamList.SelectedItem as TeamFifaData).FifaCode;
+            var MatchesData = await repo.FetchTeamMatchesDataAsyc(FifaCode);
+            MatchesData.ToList().ForEach(x => lstTeamMatchesData.Items.Add(x));
         }
     }
 }
