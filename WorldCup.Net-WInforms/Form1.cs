@@ -35,5 +35,10 @@ namespace WorldCup.Net_WInforms
             var MatchesData = await repo.FetchTeamMatchesDataAsyc(FifaCode);
             MatchesData.ToList().ForEach(x => lstTeamMatchesData.Items.Add(x));
         }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Net.Configuration.SaveConfigurationToText();
+        }
     }
 }

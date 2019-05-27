@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration.cs" />
     <Compile Include="ITeamRepo.cs" />
     <Compile Include="JSONTeamRepo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

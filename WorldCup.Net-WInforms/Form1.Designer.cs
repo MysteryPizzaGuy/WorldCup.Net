@@ -84,6 +84,7 @@
             this.Controls.Add(this.btnLoad);
             this.Controls.Add(this.TeamList);
             this.Name = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
