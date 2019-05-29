@@ -29,75 +29,55 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.TeamList = new System.Windows.Forms.ListBox();
-            this.btnLoad = new System.Windows.Forms.Button();
-            this.txtMaster = new System.Windows.Forms.TextBox();
-            this.lblClone = new System.Windows.Forms.Label();
-            this.btnGetInfo = new System.Windows.Forms.Button();
-            this.lstTeamMatchesData = new System.Windows.Forms.ListBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.pnlPlayers = new System.Windows.Forms.Panel();
+            this.pnlFavoritePlayers = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
-            // TeamList
+            // comboBox1
             // 
-            resources.ApplyResources(this.TeamList, "TeamList");
-            this.TeamList.FormattingEnabled = true;
-            this.TeamList.Name = "TeamList";
+            this.comboBox1.FormattingEnabled = true;
+            resources.ApplyResources(this.comboBox1, "comboBox1");
+            this.comboBox1.Name = "comboBox1";
             // 
-            // btnLoad
+            // button1
             // 
-            resources.ApplyResources(this.btnLoad, "btnLoad");
-            this.btnLoad.Name = "btnLoad";
-            this.btnLoad.UseVisualStyleBackColor = true;
-            this.btnLoad.Click += new System.EventHandler(this.btnLoad_ClickAsync);
+            resources.ApplyResources(this.button1, "button1");
+            this.button1.Name = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // txtMaster
+            // pnlPlayers
             // 
-            resources.ApplyResources(this.txtMaster, "txtMaster");
-            this.txtMaster.Name = "txtMaster";
+            resources.ApplyResources(this.pnlPlayers, "pnlPlayers");
+            this.pnlPlayers.Name = "pnlPlayers";
             // 
-            // lblClone
+            // pnlFavoritePlayers
             // 
-            resources.ApplyResources(this.lblClone, "lblClone");
-            this.lblClone.Name = "lblClone";
-            // 
-            // btnGetInfo
-            // 
-            resources.ApplyResources(this.btnGetInfo, "btnGetInfo");
-            this.btnGetInfo.Name = "btnGetInfo";
-            this.btnGetInfo.UseVisualStyleBackColor = true;
-            this.btnGetInfo.Click += new System.EventHandler(this.btnGetInfo_ClickAsync);
-            // 
-            // lstTeamMatchesData
-            // 
-            resources.ApplyResources(this.lstTeamMatchesData, "lstTeamMatchesData");
-            this.lstTeamMatchesData.FormattingEnabled = true;
-            this.lstTeamMatchesData.Name = "lstTeamMatchesData";
+            resources.ApplyResources(this.pnlFavoritePlayers, "pnlFavoritePlayers");
+            this.pnlFavoritePlayers.Name = "pnlFavoritePlayers";
             // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.lstTeamMatchesData);
-            this.Controls.Add(this.btnGetInfo);
-            this.Controls.Add(this.lblClone);
-            this.Controls.Add(this.txtMaster);
-            this.Controls.Add(this.btnLoad);
-            this.Controls.Add(this.TeamList);
+            this.Controls.Add(this.pnlFavoritePlayers);
+            this.Controls.Add(this.pnlPlayers);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.comboBox1);
             this.Name = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.ListBox TeamList;
-        private System.Windows.Forms.Button btnLoad;
-        private System.Windows.Forms.TextBox txtMaster;
-        private System.Windows.Forms.Label lblClone;
-        private System.Windows.Forms.Button btnGetInfo;
-        private System.Windows.Forms.ListBox lstTeamMatchesData;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Panel pnlPlayers;
+        private System.Windows.Forms.Panel pnlFavoritePlayers;
     }
 }
 

@@ -20,25 +20,16 @@ namespace WorldCup.Net_WInforms
             repo= RepoFactory.GenerateRepo(); 
         }
 
-        private async void btnLoad_ClickAsync(object sender, EventArgs e)
-        {
-            var ListofTeams = await repo.FetchTeamsAsync();
-            TeamList.DataSource = ListofTeams;
 
-        }
-
-
-
-        private async void btnGetInfo_ClickAsync(object sender, EventArgs e)
-        {
-            string FifaCode = (TeamList.SelectedItem as TeamFifaData).FifaCode;
-            var MatchesData = await repo.FetchTeamMatchesDataAsyc(FifaCode);
-            MatchesData.ToList().ForEach(x => lstTeamMatchesData.Items.Add(x));
-        }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             Net.Configuration.SaveConfigurationToText();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
