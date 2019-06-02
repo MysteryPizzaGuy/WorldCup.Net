@@ -179,13 +179,13 @@ namespace WorldCup.Net
         public string Tactics { get; set; }
 
         [JsonProperty("starting_eleven", NullValueHandling = NullValueHandling.Ignore)]
-        public StartingEleven[] StartingEleven { get; set; }
+        public TeamMatchesDataPlayer[] StartingEleven { get; set; }
 
         [JsonProperty("substitutes", NullValueHandling = NullValueHandling.Ignore)]
-        public StartingEleven[] Substitutes { get; set; }
+        public TeamMatchesDataPlayer[] Substitutes { get; set; }
     }
 
-    public partial class StartingEleven
+    public partial class TeamMatchesDataPlayer
     {
         [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
         public string Name { get; set; }

@@ -21,15 +21,39 @@ namespace WorldCup.Net_WInforms
         }
 
 
-
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             Net.Configuration.SaveConfigurationToText();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_ClickAsync(object sender, EventArgs e)
         {
+            string fifacode = (cboFavoriteTeam.SelectedItem as TeamFifaData).FifaCode;
+            var teamdatafetched = (await repo.FetchTeamMatchesDataAsyc(fifacode)).First();
+            Net.TeamStatistics teamstatistics;
+            if (teamdatafetched.HomeTeam.Code == fifacode)
+            {
+                teamstatistics = teamdatafetched.HomeTeamStatistics;
+            }
+            else
+            {
+                teamstatistics = teamdatafetched.AwayTeamStatistics;
+            }
+            var playerlist = teamstatistics.StartingEleven.Union(teamstatistics.Substitutes).ToList();
+            foreach (var player in playerlist)
+            {
+                var control = new PlayerControl();
+                control.SetPlayerName(player.Name);
+                control.SetPlayerNumber(player.ShirtNumber);
+                control.SetPlayerPosition(player.Position);
+                control.SetPlayerCaptain(player.Captain);
+                pnlPlayers.Controls.Add(control);
+            }
+        }
 
+        private async void cboFavoriteTeam_DropDownAsync(object sender, EventArgs e)
+        {
+            (sender as ComboBox).DataSource = await repo.FetchTeamsAsync();
         }
     }
 }

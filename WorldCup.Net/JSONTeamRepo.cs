@@ -46,7 +46,7 @@ namespace WorldCup.Net
             }
             var request = new RestRequest();
             var response = await client.ExecuteTaskAsync(request);
-            IList<TeamMatchesData> deser = await  Task.Run(() =>Newtonsoft.Json.JsonConvert.DeserializeObject<IList<TeamMatchesData>>(response.Content));
+            IList<TeamMatchesData> deser = await Task.Run(() =>Newtonsoft.Json.JsonConvert.DeserializeObject<IList<TeamMatchesData>>(response.Content));
             return deser;
         }
 
