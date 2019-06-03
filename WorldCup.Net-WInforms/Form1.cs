@@ -18,16 +18,26 @@ namespace WorldCup.Net_WInforms
         {
             InitializeComponent();
             repo= RepoFactory.GenerateRepo();
-            pnlPlayers.AllowDrop = true;
-            pnlFavoritePlayers.AllowDrop = true;
-            pnlPlayers.DragEnter += PlayerPanels_DragEnter;
-            pnlFavoritePlayers.DragEnter += PlayerPanels_DragEnter;
-            pnlPlayers.DragDrop+= PlayerPanels_DragDrop;
-            pnlFavoritePlayers.DragDrop += PlayerPanels_DragDrop;
+            SetupPanelsDragAndDrop(new List<FlowLayoutPanel> { pnlPlayers, pnlFavoritePlayers });
+            
 
 
 
         }
+
+        private void SetupPanelsDragAndDrop(List<FlowLayoutPanel> list)
+        {
+            foreach (var pnl in list)
+            {
+                pnl.AllowDrop = true;
+
+                pnl.DragEnter += PlayerPanels_DragEnter;
+                
+                pnl.DragDrop += PlayerPanels_DragDrop;
+                
+            }
+        }
+
         private void PlayerPanels_DragEnter(object sender, DragEventArgs e)
         {
             e.Effect = DragDropEffects.Move;
@@ -35,12 +45,81 @@ namespace WorldCup.Net_WInforms
         }
         void PlayerPanels_DragDrop(object sender, DragEventArgs e)
         {
-            ((PlayerControl)e.Data.GetData(typeof(PlayerControl))).Parent = (Panel)sender;
+            var pnl = (sender as Panel);
+            if (pnl == pnlPlayers)
+            {
+                PlayerSetFavorite(false, (e.Data.GetData(typeof(PlayerControl)) as PlayerControl).Player);
+            }
+            else
+            {
+                PlayerSetFavorite(true, (e.Data.GetData(typeof(PlayerControl)) as PlayerControl).Player);
+
+            }
+        }
+        void PlayerSetFavorite(bool isfavorite, TeamMatchesDataPlayer player)
+        {
+            player.isFavorite = isfavorite;
+            if (isfavorite)
+            {
+                foreach (PlayerControl ctrl in pnlPlayers.Controls)
+                {
+                    if (ctrl.Player.Name == player.Name)
+                    {
+                        ctrl.Player = player;
+                        ctrl.Parent = pnlFavoritePlayers;
+
+                    }
+
+                }
+            }
+            else
+            {
+                foreach (PlayerControl ctrl in pnlFavoritePlayers.Controls)
+                {
+                    if (ctrl.Player.Name == player.Name)
+                    {
+                        ctrl.Player = player;
+                        ctrl.Parent = pnlPlayers;
+
+                    }
+
+                }
+            }
         }
 
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+
+        private async void Form1_FormClosingAsync(object sender, FormClosingEventArgs e)
         {
+            var w = (Form)sender;
+            e.Cancel = true;
+            if (repo.TeamMatchesData != null) {
+                foreach (var FifaCode in repo.TeamMatchesData.Keys)
+                {
+                    var matchdata = repo.TeamMatchesData[FifaCode].First();
+                    TeamStatistics teamstatistics;
+                    if (matchdata.HomeTeam.Code == FifaCode)
+                    {
+                        teamstatistics = matchdata.HomeTeamStatistics;
+                    }
+                    else
+                    {
+                        teamstatistics = matchdata.AwayTeamStatistics;
+                    }
+                    foreach (var player in teamstatistics.StartingEleven.Union(teamstatistics.Substitutes).ToList())
+                    {
+                        if (player.isFavorite)
+                        {
+                            if (!Configuration.FavoritePlayers.ContainsKey(FifaCode))
+                            {
+                                Configuration.FavoritePlayers[FifaCode] = new List<string>();
+                            }
+                            Configuration.FavoritePlayers[FifaCode].Add(player.Name);
+                        }
+                    }
+                }
+            }
             Net.Configuration.SaveConfigurationToText();
+            w.Close();
         }
 
         private async void button1_ClickAsync(object sender, EventArgs e)
@@ -75,14 +154,12 @@ namespace WorldCup.Net_WInforms
 
         private void LoadPlayerIntoPanel(TeamMatchesDataPlayer player, FlowLayoutPanel pnl)
         {
-            var control = new PlayerControl();
-            control.SetPlayerName(player.Name);
-            control.SetPlayerNumber(player.ShirtNumber);
-            control.SetPlayerPosition(player.Position);
-            control.SetPlayerCaptain(player.Captain);
+            var control = new PlayerControl(player);   
             control.Width = 350;
             control.MouseDown += PlayerControl_MouseDown;
             pnl.Controls.Add(control);
+            PlayerSetFavorite(player.isFavorite, player);
+
         }
 
         private void PlayerControl_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
@@ -106,7 +183,21 @@ namespace WorldCup.Net_WInforms
             return teamstatistics.StartingEleven.Union(teamstatistics.Substitutes).ToList();
         }
 
+        private void pnlFavoritePlayers_ControlAdded(object sender, ControlEventArgs e)
+        {
+            if ((sender as FlowLayoutPanel).Controls.Count >=3)
+            {
+                (sender as FlowLayoutPanel).AllowDrop = false;
+            }
+            
+        }
 
-      
+        private void pnlFavoritePlayers_ControlRemoved(object sender, ControlEventArgs e)
+        {
+            if ((sender as FlowLayoutPanel).Controls.Count <= 2)
+            {
+                (sender as FlowLayoutPanel).AllowDrop = true;
+            }
+        }
     }
 }

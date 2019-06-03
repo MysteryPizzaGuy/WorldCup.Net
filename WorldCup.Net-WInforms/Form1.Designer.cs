@@ -60,6 +60,8 @@
             this.pnlFavoritePlayers.AllowDrop = true;
             resources.ApplyResources(this.pnlFavoritePlayers, "pnlFavoritePlayers");
             this.pnlFavoritePlayers.Name = "pnlFavoritePlayers";
+            this.pnlFavoritePlayers.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.pnlFavoritePlayers_ControlAdded);
+            this.pnlFavoritePlayers.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.pnlFavoritePlayers_ControlRemoved);
             // 
             // Form1
             // 
@@ -70,7 +72,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.cboFavoriteTeam);
             this.Name = "Form1";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosingAsync);
             this.ResumeLayout(false);
 
         }

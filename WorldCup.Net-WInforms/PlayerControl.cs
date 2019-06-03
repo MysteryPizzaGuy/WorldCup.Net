@@ -19,31 +19,39 @@ namespace WorldCup.Net_WInforms
         private Label lblCaptain;
         private CheckBox chkCaptain;
         private PictureBox picFavoriteStar;
-        private bool favorite = false;
+        private Net.TeamMatchesDataPlayer player;
+        public Net.TeamMatchesDataPlayer Player { get => this.player; set
+            {
+                this.player = value;
+                RefreshControlData(player);
+            }
+        }
 
-        public PlayerControl()
+        public PlayerControl(Net.TeamMatchesDataPlayer player)
         {
             InitializeComponent();
+            this.player = player;
+            RefreshControlData(player);
         }
 
-        public void SetPlayerName(string name)
+        private void RefreshControlData(Net.TeamMatchesDataPlayer player)
         {
-            lblName.Text = name;
-        }
-        public void SetPlayerNumber(long? number)
-        {
-            lblNumber.Text = number.ToString();
-        }
-        public void SetPlayerPosition(string position)
-        {
-            lblPosition.Text = position;
-        }
-        public void SetPlayerCaptain(bool? iscaptain)
-        {
-            bool isCaptain = iscaptain.HasValue ? iscaptain.Value : false;
+            lblName.Text = player.Name;
+            lblNumber.Text = player.ShirtNumber.ToString();
+            lblPosition.Text = player.Position;
+            bool isCaptain = player.Captain.HasValue ? player.Captain.Value : false;
             chkCaptain.Checked = isCaptain;
-        }
+            if (player.isFavorite ==false)
+            {
+                picFavoriteStar.Image =Properties.Resources.starempty;
+            }
+            else
+            {
+                picFavoriteStar.Image = Properties.Resources.starfilled;
 
+            }
+
+        }
 
         private void label1_TextChanged(object sender, EventArgs e)
         {
@@ -139,6 +147,7 @@ namespace WorldCup.Net_WInforms
             this.picPlayer.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picPlayer.TabIndex = 0;
             this.picPlayer.TabStop = false;
+            this.picPlayer.Click += new System.EventHandler(this.picPlayer_Click);
             // 
             // PlayerControl
             // 
@@ -157,8 +166,14 @@ namespace WorldCup.Net_WInforms
             this.PerformLayout();
 
         }
-        
 
-        
+        private void picPlayer_Click(object sender, EventArgs e)
+        {
+            var diag = new OpenFileDialog();
+            if (diag.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                picPlayer.Image = Image.FromFile(diag.FileName);
+            }
+        }
     }
 }

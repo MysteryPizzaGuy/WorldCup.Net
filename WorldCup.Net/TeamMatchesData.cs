@@ -198,6 +198,8 @@ namespace WorldCup.Net
 
         [JsonProperty("position", NullValueHandling = NullValueHandling.Ignore)]
         public string Position { get; set; }
+
+        public bool isFavorite { get; set; }
     }
 
     public partial class Weather
