@@ -32,7 +32,7 @@
             this.cboFavoriteTeam = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
             this.pnlPlayers = new System.Windows.Forms.FlowLayoutPanel();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.pnlFavoritePlayers = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
             // 
             // cboFavoriteTeam
@@ -51,19 +51,21 @@
             // 
             // pnlPlayers
             // 
+            this.pnlPlayers.AllowDrop = true;
             resources.ApplyResources(this.pnlPlayers, "pnlPlayers");
             this.pnlPlayers.Name = "pnlPlayers";
             // 
-            // flowLayoutPanel1
+            // pnlFavoritePlayers
             // 
-            resources.ApplyResources(this.flowLayoutPanel1, "flowLayoutPanel1");
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.pnlFavoritePlayers.AllowDrop = true;
+            resources.ApplyResources(this.pnlFavoritePlayers, "pnlFavoritePlayers");
+            this.pnlFavoritePlayers.Name = "pnlFavoritePlayers";
             // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.flowLayoutPanel1);
+            this.Controls.Add(this.pnlFavoritePlayers);
             this.Controls.Add(this.pnlPlayers);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.cboFavoriteTeam);
@@ -78,7 +80,7 @@
         private System.Windows.Forms.ComboBox cboFavoriteTeam;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.FlowLayoutPanel pnlPlayers;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.FlowLayoutPanel pnlFavoritePlayers;
     }
 }
 

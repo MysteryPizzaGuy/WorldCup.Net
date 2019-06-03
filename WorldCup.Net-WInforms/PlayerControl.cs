@@ -59,6 +59,7 @@ namespace WorldCup.Net_WInforms
 
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PlayerControl));
             this.lblName = new System.Windows.Forms.Label();
             this.lblNumber = new System.Windows.Forms.Label();
             this.lblPosition = new System.Windows.Forms.Label();
@@ -75,7 +76,7 @@ namespace WorldCup.Net_WInforms
             this.lblName.AutoSize = true;
             this.lblName.Location = new System.Drawing.Point(61, 4);
             this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(35, 13);
+            this.lblName.Size = new System.Drawing.Size(46, 17);
             this.lblName.TabIndex = 1;
             this.lblName.Text = "label1";
             this.lblName.TextChanged += new System.EventHandler(this.label1_TextChanged);
@@ -85,7 +86,7 @@ namespace WorldCup.Net_WInforms
             this.lblNumber.AutoSize = true;
             this.lblNumber.Location = new System.Drawing.Point(61, 33);
             this.lblNumber.Name = "lblNumber";
-            this.lblNumber.Size = new System.Drawing.Size(35, 13);
+            this.lblNumber.Size = new System.Drawing.Size(46, 17);
             this.lblNumber.TabIndex = 2;
             this.lblNumber.Text = "label2";
             // 
@@ -94,18 +95,18 @@ namespace WorldCup.Net_WInforms
             this.lblPosition.AutoSize = true;
             this.lblPosition.Location = new System.Drawing.Point(139, 33);
             this.lblPosition.Name = "lblPosition";
-            this.lblPosition.Size = new System.Drawing.Size(35, 13);
+            this.lblPosition.Size = new System.Drawing.Size(46, 17);
             this.lblPosition.TabIndex = 3;
             this.lblPosition.Text = "label3";
             // 
             // lblCaptain
             // 
             this.lblCaptain.AutoSize = true;
-            this.lblCaptain.Location = new System.Drawing.Point(212, 33);
+            this.lblCaptain.Location = new System.Drawing.Point(191, 33);
             this.lblCaptain.Name = "lblCaptain";
-            this.lblCaptain.Size = new System.Drawing.Size(35, 13);
+            this.lblCaptain.Size = new System.Drawing.Size(56, 17);
             this.lblCaptain.TabIndex = 4;
-            this.lblCaptain.Text = "label4";
+            this.lblCaptain.Text = "Captain";
             // 
             // chkCaptain
             // 
@@ -113,15 +114,15 @@ namespace WorldCup.Net_WInforms
             this.chkCaptain.Enabled = false;
             this.chkCaptain.Location = new System.Drawing.Point(253, 33);
             this.chkCaptain.Name = "chkCaptain";
-            this.chkCaptain.Size = new System.Drawing.Size(15, 14);
+            this.chkCaptain.Size = new System.Drawing.Size(18, 17);
             this.chkCaptain.TabIndex = 5;
             this.chkCaptain.UseVisualStyleBackColor = true;
             // 
             // picFavoriteStar
             // 
             this.picFavoriteStar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.picFavoriteStar.Image = global::WorldCup.Net_WInforms.Properties.Resources.starempty;
-            this.picFavoriteStar.InitialImage = global::WorldCup.Net_WInforms.Properties.Resources.starempty;
+            this.picFavoriteStar.Image = ((System.Drawing.Image)(resources.GetObject("picFavoriteStar.Image")));
+            this.picFavoriteStar.InitialImage = ((System.Drawing.Image)(resources.GetObject("picFavoriteStar.InitialImage")));
             this.picFavoriteStar.Location = new System.Drawing.Point(334, 14);
             this.picFavoriteStar.Name = "picFavoriteStar";
             this.picFavoriteStar.Size = new System.Drawing.Size(32, 32);
@@ -131,6 +132,7 @@ namespace WorldCup.Net_WInforms
             // 
             // picPlayer
             // 
+            this.picPlayer.Image = global::WorldCup.Net_WInforms.Properties.Resources.defaultplayer;
             this.picPlayer.Location = new System.Drawing.Point(3, 4);
             this.picPlayer.Name = "picPlayer";
             this.picPlayer.Size = new System.Drawing.Size(52, 52);

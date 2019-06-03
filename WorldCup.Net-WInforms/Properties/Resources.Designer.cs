@@ -63,6 +63,16 @@ namespace WorldCup.Net_WInforms.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap defaultplayer {
+            get {
+                object obj = ResourceManager.GetObject("defaultplayer", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap starempty {
             get {
                 object obj = ResourceManager.GetObject("starempty", resourceCulture);
