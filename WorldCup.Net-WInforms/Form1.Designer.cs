@@ -80,6 +80,7 @@
             this.Controls.Add(this.cboFavoriteTeam);
             this.Name = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosingAsync);
+            this.Load += new System.EventHandler(this.Form1_LoadAsync);
             this.ResumeLayout(false);
             this.PerformLayout();
 

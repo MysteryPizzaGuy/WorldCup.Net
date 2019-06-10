@@ -14,6 +14,8 @@ namespace WorldCup.Net
     using System.Globalization;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
+    using System.Drawing;
+
 
     public partial class TeamMatchesData
     {
@@ -200,6 +202,9 @@ namespace WorldCup.Net
         public string Position { get; set; }
 
         public bool isFavorite { get; set; }
+
+        public Image PlayerImage { get; set; }
+
     }
 
     public partial class Weather

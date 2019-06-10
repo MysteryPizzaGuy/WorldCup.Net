@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,8 +16,17 @@ namespace WorldCup.Net
         public static Language AppLanguage { get; set; }
         public static string FavoriteTeamCode { get; set; }
         private const string FILEPATH = "settings.txt";
+        public static string ImageResources="WorldCup.Net.Resources";
+        
         public static Dictionary<string, List<string>> FavoritePlayers { get; set; } = new Dictionary<string, List<string>>();
 
+        static public void AddImageToResources(string playername, Image playerimage)
+        {
+            using (IResourceWriter writer = new ResourceWriter(ImageResources))
+            {
+                writer.AddResource(playername, playerimage);
+            }
+        }
 
         static public void SaveConfigurationToText()
         {
@@ -66,7 +78,7 @@ namespace WorldCup.Net
                     default:
                         var fifacode = GetPropFromConfLine(line).Substring(GetPropFromConfLine(line).IndexOf('_') + 1);
                         FavoritePlayers[fifacode] = new List<string>();
-                        foreach (var item in GetValueFromConfLine(line).Split(';'))
+                        foreach (var item in GetValueFromConfLine(line).Split(new char[] { ';' },StringSplitOptions.RemoveEmptyEntries ))
                         {
                             FavoritePlayers[fifacode].Add(item);
                         }

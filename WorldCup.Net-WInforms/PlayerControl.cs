@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Resources;
+using WorldCup.Net;
 
 namespace WorldCup.Net_WInforms
 {
@@ -41,6 +43,7 @@ namespace WorldCup.Net_WInforms
             lblPosition.Text = player.Position;
             bool isCaptain = player.Captain.HasValue ? player.Captain.Value : false;
             chkCaptain.Checked = isCaptain;
+            picPlayer.Image = player.PlayerImage;
             if (player.isFavorite ==false)
             {
                 picFavoriteStar.Image =Properties.Resources.starempty;
@@ -62,6 +65,16 @@ namespace WorldCup.Net_WInforms
             }
         }
 
+        private void picPlayer_Click(object sender, EventArgs e)
+        {
+            var diag = new OpenFileDialog();
+            if (diag.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                picPlayer.Image = Image.FromFile(diag.FileName);
+                player.PlayerImage = picPlayer.Image;
+                Configuration.AddImageToResources(player.Name, picPlayer.Image);
+            }
+        }
 
 
 
@@ -167,13 +180,5 @@ namespace WorldCup.Net_WInforms
 
         }
 
-        private void picPlayer_Click(object sender, EventArgs e)
-        {
-            var diag = new OpenFileDialog();
-            if (diag.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                picPlayer.Image = Image.FromFile(diag.FileName);
-            }
-        }
     }
 }

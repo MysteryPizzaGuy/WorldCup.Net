@@ -92,7 +92,20 @@ namespace WorldCup.Net_WInforms
         {
             var w = (Form)sender;
             e.Cancel = true;
-            if (repo.TeamMatchesData != null) {
+            FillFavoritePlayersFromCurrentState();
+            //Fill Favorite Team from Current State
+            if (cboFavoriteTeam.SelectedItem != null)
+            {
+                Configuration.FavoriteTeamCode = (cboFavoriteTeam.SelectedItem as TeamFifaData).FifaCode;
+            }
+            Net.Configuration.SaveConfigurationToText();
+            e.Cancel = false;
+        }
+
+        private void FillFavoritePlayersFromCurrentState()
+        {
+            if (repo.TeamMatchesData != null)
+            {
                 foreach (var FifaCode in repo.TeamMatchesData.Keys)
                 {
                     var matchdata = repo.TeamMatchesData[FifaCode].First();
@@ -113,15 +126,17 @@ namespace WorldCup.Net_WInforms
                             {
                                 Configuration.FavoritePlayers[FifaCode] = new List<string>();
                             }
-                            Configuration.FavoritePlayers[FifaCode].Add(player.Name);
+
+                            if (!Configuration.FavoritePlayers[FifaCode].Contains(player.Name))
+                            {
+                                Configuration.FavoritePlayers[FifaCode].Add(player.Name);
+                            }
                         }
                     }
                 }
             }
-            Net.Configuration.SaveConfigurationToText();
-            e.Cancel = false ;
         }
-
+      
         private async void button1_ClickAsync(object sender, EventArgs e)
         {
             foreach (PlayerControl control in pnlPlayers.Controls)
@@ -148,17 +163,20 @@ namespace WorldCup.Net_WInforms
 
         private async void cboFavoriteTeam_DropDownAsync(object sender, EventArgs e)
         {
-            try
+            if ((sender as ComboBox).DataSource ==null)
             {
-                (sender as ComboBox).DataSource = await repo.FetchTeamsAsync();
+                try
+                {
+                    (sender as ComboBox).DataSource = await repo.FetchTeamsAsync();
 
-            }
-            catch (Exception ex)
-            {
+                }
+                catch (Exception ex)
+                {
 
-                MessageBox.Show(ex.ToString());
+                    MessageBox.Show(ex.ToString());
+                } 
             }
-}
+        }
 
 
         private void LoadPlayerIntoPanel(TeamMatchesDataPlayer player, FlowLayoutPanel pnl)
@@ -206,6 +224,24 @@ namespace WorldCup.Net_WInforms
             if ((sender as FlowLayoutPanel).Controls.Count <= 2)
             {
                 (sender as FlowLayoutPanel).AllowDrop = true;
+            }
+        }
+
+        private async void Form1_LoadAsync(object sender, EventArgs e)
+        {
+            if (Configuration.FavoriteTeamCode != String.Empty)
+            {
+                try
+                {
+                    cboFavoriteTeam.DataSource = await repo.FetchTeamsAsync();
+
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show(ex.ToString());
+                }
+                cboFavoriteTeam.SelectedIndex = cboFavoriteTeam.Items.IndexOf((cboFavoriteTeam.DataSource as IList<TeamFifaData>).Where((x) => x.FifaCode == Configuration.FavoriteTeamCode).Single());
             }
         }
     }

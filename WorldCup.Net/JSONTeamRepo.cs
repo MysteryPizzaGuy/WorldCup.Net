@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 using RestSharp;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using System.Resources;
+using System.Drawing;
+using System.Reflection;
+using System.Globalization;
 
 namespace WorldCup.Net
 {
@@ -14,7 +18,6 @@ namespace WorldCup.Net
         RestSharp.RestClient client;
         List<TeamFifaData> TeamList = null;
         public Dictionary<string, IList<TeamMatchesData>> TeamMatchesData { get; set; } = null;
-
         public string TeamFifaDataTarget { get; set; } = "https://world-cup-json-2018.herokuapp.com/teams/results";
         public string TeamMatchesDataURL { get; set; } = "https://world-cup-json-2018.herokuapp.com/matches/country?fifa_code=";
 
@@ -81,6 +84,8 @@ namespace WorldCup.Net
                 }
                 var allplayers =teamstatistics.StartingEleven.Union(teamstatistics.Substitutes);
                 allplayers.ToList().ForEach((x)=>LoadSavedFavPlayers(x,FifaCode));
+                allplayers.ToList().ForEach((x) => LoadPlayerImages(x));
+
             }
 
             return TeamMatchesData[FifaCode];
@@ -97,7 +102,21 @@ namespace WorldCup.Net
             }
 
         }
+        void LoadPlayerImages(TeamMatchesDataPlayer player)
+        {
 
-      
+
+            ResourceManager rm = new ResourceManager(Configuration.ImageResources, Assembly.GetExecutingAssembly());
+            List<string> keys = new List<string>();
+            if (keys.Contains(player.Name))
+            {
+                player.PlayerImage = rm.GetObject(player.Name) as Bitmap;
+            }
+
+
+        }
+
+
+
     }
 }
