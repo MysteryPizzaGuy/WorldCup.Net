@@ -33,6 +33,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.pnlPlayers = new System.Windows.Forms.FlowLayoutPanel();
             this.pnlFavoritePlayers = new System.Windows.Forms.FlowLayoutPanel();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // cboFavoriteTeam
@@ -63,10 +64,16 @@
             this.pnlFavoritePlayers.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.pnlFavoritePlayers_ControlAdded);
             this.pnlFavoritePlayers.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.pnlFavoritePlayers_ControlRemoved);
             // 
+            // textBox1
+            // 
+            resources.ApplyResources(this.textBox1, "textBox1");
+            this.textBox1.Name = "textBox1";
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.pnlFavoritePlayers);
             this.Controls.Add(this.pnlPlayers);
             this.Controls.Add(this.button1);
@@ -74,6 +81,7 @@
             this.Name = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosingAsync);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -83,6 +91,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.FlowLayoutPanel pnlPlayers;
         private System.Windows.Forms.FlowLayoutPanel pnlFavoritePlayers;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 

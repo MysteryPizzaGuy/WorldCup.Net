@@ -119,14 +119,14 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="cboFavoriteTeam.Location" type="System.Drawing.Point, System.Drawing">
-    <value>572, 0</value>
+    <value>429, 0</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="cboFavoriteTeam.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 2, 3, 2</value>
+    <value>2, 2, 2, 2</value>
   </data>
   <data name="cboFavoriteTeam.Size" type="System.Drawing.Size, System.Drawing">
-    <value>193, 24</value>
+    <value>146, 21</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="cboFavoriteTeam.TabIndex" type="System.Int32, mscorlib">
@@ -142,16 +142,16 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cboFavoriteTeam.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>624, 92</value>
+    <value>468, 75</value>
   </data>
   <data name="button1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 2, 3, 2</value>
+    <value>2, 2, 2, 2</value>
   </data>
   <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>56, 19</value>
   </data>
   <data name="button1.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -169,7 +169,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="pnlPlayers.AutoScroll" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -183,11 +183,8 @@
   <data name="pnlPlayers.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="pnlPlayers.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
   <data name="pnlPlayers.Size" type="System.Drawing.Size, System.Drawing">
-    <value>500, 500</value>
+    <value>375, 406</value>
   </data>
   <data name="pnlPlayers.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -205,7 +202,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pnlPlayers.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="pnlFavoritePlayers.AutoScroll" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -217,13 +214,10 @@
     <value>TopDown</value>
   </data>
   <data name="pnlFavoritePlayers.Location" type="System.Drawing.Point, System.Drawing">
-    <value>837, 0</value>
-  </data>
-  <data name="pnlFavoritePlayers.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>628, 0</value>
   </data>
   <data name="pnlFavoritePlayers.Size" type="System.Drawing.Size, System.Drawing">
-    <value>500, 500</value>
+    <value>375, 406</value>
   </data>
   <data name="pnlFavoritePlayers.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -241,19 +235,43 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;pnlFavoritePlayers.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="textBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>417, 256</value>
+  </data>
+  <data name="textBox1.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="textBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>167, 83</value>
+  </data>
+  <data name="textBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;textBox1.Name" xml:space="preserve">
+    <value>textBox1</value>
+  </data>
+  <data name="&gt;&gt;textBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBox1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;textBox1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>8, 16</value>
+    <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>1337, 500</value>
+    <value>1003, 406</value>
   </data>
   <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 2, 3, 2</value>
+    <value>2, 2, 2, 2</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Form1</value>

@@ -226,15 +226,15 @@ namespace WorldCup.Net
 
     public partial class TeamMatchesData
     {
-        public static TeamMatchesData[] FromJson(string json) => JsonConvert.DeserializeObject<TeamMatchesData[]>(json, WorldCup.Net.Converter.Settings);
+        public static TeamMatchesData[] FromJson(string json) => JsonConvert.DeserializeObject<TeamMatchesData[]>(json, WorldCup.Net.TeamMatchesDataConverter.Settings);
     }
 
-    public static class Serialize
+    public static class TeamMatchesDataSerialize
     {
-        public static string ToJson(this TeamMatchesData[] self) => JsonConvert.SerializeObject(self, WorldCup.Net.Converter.Settings);
+        public static string ToJson(this TeamMatchesData[] self) => JsonConvert.SerializeObject(self, WorldCup.Net.TeamMatchesDataConverter.Settings);
     }
 
-    internal static class Converter
+    internal static class TeamMatchesDataConverter
     {
         public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
         {

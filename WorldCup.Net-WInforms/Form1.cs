@@ -88,7 +88,7 @@ namespace WorldCup.Net_WInforms
         }
 
 
-        private async void Form1_FormClosingAsync(object sender, FormClosingEventArgs e)
+        private void Form1_FormClosingAsync(object sender, FormClosingEventArgs e)
         {
             var w = (Form)sender;
             e.Cancel = true;
@@ -119,7 +119,7 @@ namespace WorldCup.Net_WInforms
                 }
             }
             Net.Configuration.SaveConfigurationToText();
-            w.Close();
+            e.Cancel = false ;
         }
 
         private async void button1_ClickAsync(object sender, EventArgs e)
@@ -148,8 +148,17 @@ namespace WorldCup.Net_WInforms
 
         private async void cboFavoriteTeam_DropDownAsync(object sender, EventArgs e)
         {
-            (sender as ComboBox).DataSource = await repo.FetchTeamsAsync();
-        }
+            try
+            {
+                (sender as ComboBox).DataSource = await repo.FetchTeamsAsync();
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+            }
+}
 
 
         private void LoadPlayerIntoPanel(TeamMatchesDataPlayer player, FlowLayoutPanel pnl)

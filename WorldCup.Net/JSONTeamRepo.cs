@@ -15,8 +15,8 @@ namespace WorldCup.Net
         List<TeamFifaData> TeamList = null;
         public Dictionary<string, IList<TeamMatchesData>> TeamMatchesData { get; set; } = null;
 
-        public string TeamFifaDataTarget { get; set; } = "http://worldcup.sfg.io/teams/results";
-        public string TeamMatchesDataURL { get; set; } = "http://worldcup.sfg.io/matches/country?fifa_code=";
+        public string TeamFifaDataTarget { get; set; } = "https://world-cup-json-2018.herokuapp.com/teams/results";
+        public string TeamMatchesDataURL { get; set; } = "https://world-cup-json-2018.herokuapp.com/matches/country?fifa_code=";
 
         public async Task<IList<TeamFifaData>> FetchTeamsAsync()
         {
@@ -32,8 +32,19 @@ namespace WorldCup.Net
                     throw new Exception("Target not determined!");
                 }
                 var request = new RestRequest();
-                var response = await client.ExecuteTaskAsync<List<TeamFifaData>>(request);
-                this.TeamList = response.Data;
+                client.Timeout = 3000;
+                System.Net.WebRequest.DefaultWebProxy = null;
+                var response = await Task.Run(()=>client.ExecuteTaskAsync(request));
+            
+                if (response.ErrorException != null)
+                {
+                    const string message = "Error retrieving response.  Check inner details for more info.";
+                    var browserStackException = new ApplicationException(message, response.ErrorException);
+                    throw browserStackException;
+                }
+                var teamfifadata  = TeamFifaData.FromJson(response.Content);
+
+                this.TeamList = teamfifadata;
             }
             return this.TeamList;
         }
