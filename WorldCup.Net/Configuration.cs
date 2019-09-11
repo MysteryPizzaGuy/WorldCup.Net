@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Resources;
 using System.Text;
+using System.Drawing.Imaging;
 using System.Threading.Tasks;
 
 namespace WorldCup.Net
@@ -16,21 +17,50 @@ namespace WorldCup.Net
         public static Language AppLanguage { get; set; }
         public static string FavoriteTeamCode { get; set; }
         private const string FILEPATH = "settings.txt";
-        public static string ImageResources="WorldCup.Net.Resources";
-        
+        //public static string ImageResources="WorldCup.Net.Resources";
+        public static string ResourcesPath= "..\\..\\..\\PlayerImages\\";
+        public static Image DefaultPlayerImage = new Bitmap((ResourcesPath + "defaultplayer.png"));
+
         public static Dictionary<string, List<string>> FavoritePlayers { get; set; } = new Dictionary<string, List<string>>();
 
-        static public void AddImageToResources(string playername, Image playerimage)
+        static public void AddImageToResources(TeamMatchesDataPlayer player)
         {
-            using (IResourceWriter writer = new ResourceWriter(ImageResources))
+            if (!Directory.Exists(ResourcesPath))
             {
-                writer.AddResource(playername, playerimage);
+                Directory.CreateDirectory(ResourcesPath);
+            }
+            //if (File.Exists((ResourcesPath + player.Name + ".bmp")))
+            //{
+                using (MemoryStream memory = new MemoryStream())
+                {
+                    using (FileStream fs = new FileStream((ResourcesPath+player.Name+".png"), FileMode.Create, FileAccess.ReadWrite))
+                    {
+                        player.PlayerImage.Save(memory, ImageFormat.Png);
+                        byte[] bytes = memory.ToArray();
+                        fs.Write(bytes, 0, bytes.Length);
+                    }
+                }
+            //}
+            //else
+            //{
+            //    player.PlayerImage.Save((ResourcesPath + player.Name + ".bmp"));
+            //}
+        }
+
+        static public Image LoadImageFromResources(TeamMatchesDataPlayer player)
+        {
+            if (!File.Exists(ResourcesPath + player.Name + ".png"))
+            {
+                return DefaultPlayerImage;
+            }
+            else
+            {
+                return new Bitmap(ResourcesPath + player.Name + ".png");
             }
         }
 
         static public void SaveConfigurationToText()
         {
-
             string[] tosave = { $"LANG={AppLanguage}",
                                 $"FTC={FavoriteTeamCode}",
                                 };
@@ -64,7 +94,7 @@ namespace WorldCup.Net
                 switch (GetPropFromConfLine(line))
                 {
                     case "LANG":
-                        if (GetValueFromConfLine(line) == "English")
+                        if (GetValueFromConfLine(line) == "Croatian")
                         {
                             AppLanguage = Language.Croatian;
                         }

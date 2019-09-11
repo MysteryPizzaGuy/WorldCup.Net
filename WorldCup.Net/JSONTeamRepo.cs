@@ -84,7 +84,7 @@ namespace WorldCup.Net
                 }
                 var allplayers =teamstatistics.StartingEleven.Union(teamstatistics.Substitutes);
                 allplayers.ToList().ForEach((x)=>LoadSavedFavPlayers(x,FifaCode));
-                allplayers.ToList().ForEach((x) => LoadPlayerImages(x));
+                allplayers.ToList().ForEach((x) => x.PlayerImage=Configuration.LoadImageFromResources(x));
 
             }
 
@@ -102,19 +102,19 @@ namespace WorldCup.Net
             }
 
         }
-        void LoadPlayerImages(TeamMatchesDataPlayer player)
-        {
+        //void LoadPlayerImages(TeamMatchesDataPlayer player)
+        //{
 
 
-            ResourceManager rm = new ResourceManager(Configuration.ImageResources, Assembly.GetExecutingAssembly());
-            List<string> keys = new List<string>();
-            if (keys.Contains(player.Name))
-            {
-                player.PlayerImage = rm.GetObject(player.Name) as Bitmap;
-            }
+        //    ResourceManager rm = new ResourceManager(Configuration.ImageResources, Assembly.GetExecutingAssembly());
+        //    List<string> keys = new List<string>();
+        //    if (keys.Contains(player.Name))
+        //    {
+        //        player.PlayerImage = rm.GetObject(player.Name) as Bitmap;
+        //    }
 
 
-        }
+        //}
 
 
 
