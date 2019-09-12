@@ -22,9 +22,11 @@ namespace WorldCup.Net_WPF
     public partial class PlayerDisplay : UserControl
     {
         public TeamMatchesDataPlayer Player { get; set; }
-        public PlayerDisplay(TeamMatchesDataPlayer player)
+        public TeamMatchesData TeamMatchData { get; set; }
+        public PlayerDisplay(TeamMatchesDataPlayer player,TeamMatchesData TeamMatchData)
         {
             Player = player;
+            this.TeamMatchData = TeamMatchData;
             InitializeComponent();
             DataContainer.DataContext = Player;
             using (var ms = new MemoryStream())
@@ -54,5 +56,58 @@ namespace WorldCup.Net_WPF
            
 
         }
+        public class PlayerDetailsData
+        {
+            public long? ShirtNumber { get; set; }
+            public string PlayerName { get; set; }
+            public string Captain { get; set; }
+            public string Position { get; set; }
+            public int GoalsScoredinMatch { get; set; } = 0;
+            public int YellowCards { get; set; } = 0;
+        }
+        private void UserControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            PlayerDetailsData pd = new PlayerDetailsData();
+            bool newBool = Player.Captain ?? false;
+
+            if (newBool)
+            {
+                pd.Captain = "Captain";
+            }
+            else
+            {
+                pd.Captain = "Not Captain";
+            }
+            pd.PlayerName = Player.Name;
+            pd.ShirtNumber = Player.ShirtNumber;
+            pd.Position = Player.Position;
+
+            foreach (var ev in TeamMatchData.AwayTeamEvents.Union(TeamMatchData.HomeTeamEvents))
+            {
+                if (ev.Player==Player.Name)
+                {
+                    switch (ev.TypeOfEvent)
+                    {
+                        case "yellow-card":
+                            pd.YellowCards++;
+                            break;
+                        case "goal":
+                            pd.GoalsScoredinMatch++;
+                            break;
+                        case "goal-penalty":
+                            pd.GoalsScoredinMatch++;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+
+            PlayerDetails det = new PlayerDetails(pd,Player);
+            det.Show();
+            
+
+        }
+
     }
 }

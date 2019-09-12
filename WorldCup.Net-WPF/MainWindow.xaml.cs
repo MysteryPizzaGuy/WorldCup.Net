@@ -46,14 +46,22 @@ namespace WorldCup.Net_WPF
 
 
         private async void CboFavoriteTeam_Loaded(object sender, RoutedEventArgs e)
-        { 
-            var Teams = await repo.FetchTeamsAsync();
-            cboFavoriteTeam.ItemsSource = Teams;
-            if (Configuration.FavoriteTeamCode !=null)
+        {
+            try
             {
-                SelectedFavoriteTeam = Teams.Where(x => x.FifaCode == Configuration.FavoriteTeamCode).First();
-                cboFavoriteTeam.SelectedItem = SelectedFavoriteTeam;
-                LoadOppositiontoFavorite();
+                var Teams = await repo.FetchTeamsAsync();
+                cboFavoriteTeam.ItemsSource = Teams;
+                if (Configuration.FavoriteTeamCode != null)
+                {
+                    SelectedFavoriteTeam = Teams.Where(x => x.FifaCode == Configuration.FavoriteTeamCode).First();
+                    cboFavoriteTeam.SelectedItem = SelectedFavoriteTeam;
+                    LoadOppositiontoFavorite();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
             }
 
         }
@@ -91,12 +99,7 @@ namespace WorldCup.Net_WPF
             md.Show();
         }
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
-        {
-            var TeamMatchesData = await repo.FetchTeamMatchesDataAsyc(SelectedFavoriteTeam.FifaCode);
-            PlayerDisplay pd = new PlayerDisplay(TeamMatchesData.First().AwayTeamStatistics.StartingEleven.First());
 
-        }
 
         private void Canvas_Loaded(object sender, RoutedEventArgs e)
         {
@@ -118,6 +121,7 @@ namespace WorldCup.Net_WPF
             string oppositioncode = (cboOppositeTeam.SelectedItem as TeamFifaData).FifaCode;
             bool home = false;
             var MatchesData = await repo.FetchTeamMatchesDataAsyc(favoritecode);
+            TeamMatchesData MatchData = null;
             TeamStatistics fav = new TeamStatistics();
             TeamStatistics opp=new TeamStatistics();
             foreach (var Match in MatchesData)
@@ -127,15 +131,18 @@ namespace WorldCup.Net_WPF
                     home = true;
                     opp = Match.AwayTeamStatistics;
                     fav = Match.HomeTeamStatistics;
+                    MatchData = Match;
                 }
                 else if (Match.HomeTeam.Code == oppositioncode)
                 {
                     home = false;
                     opp = Match.HomeTeamStatistics;
                     fav = Match.AwayTeamStatistics;
+                    MatchData = Match;
+
                 }
             }
-            int[] sequence = new int[] { 2, 3, 1, 4, 0};
+            int[] sequence = new int[] { 2, 3, 1, 4, 0, 0, 0};
             Dictionary<string, int[]> dicseq = new Dictionary<string, int[]>();
 
             int g = 0;
@@ -145,7 +152,7 @@ namespace WorldCup.Net_WPF
 
             foreach (var player in fav.StartingEleven)
             {
-                PlayerDisplay pd = new PlayerDisplay(player);
+                PlayerDisplay pd = new PlayerDisplay(player,MatchData);
                 SoccerCanvas.Children.Add(pd);
                 switch (player.Position)
                 {
@@ -180,7 +187,7 @@ namespace WorldCup.Net_WPF
             f = 0;
             foreach (var player in opp.StartingEleven)
             {
-                PlayerDisplay pd = new PlayerDisplay(player);
+                PlayerDisplay pd = new PlayerDisplay(player, MatchData);
                 SoccerCanvas.Children.Add(pd);
                 switch (player.Position)
                 {

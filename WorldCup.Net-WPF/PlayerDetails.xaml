@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:WorldCup.Net_WPF"
         mc:Ignorable="d"
         Title="PlayerDetails" Height="450" Width="298.851">
-	<Grid>
-		<Grid HorizontalAlignment="Stretch" Height="Auto" VerticalAlignment="Stretch" Width="Auto">
+	<Grid >
+		<Grid x:Name="MainGrid" HorizontalAlignment="Stretch" Height="Auto" VerticalAlignment="Stretch" Width="Auto">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="3*"></RowDefinition>
 				<RowDefinition Height="1*"></RowDefinition>
@@ -28,7 +28,7 @@
 				<Label Content="{Binding ShirtNumber}" VerticalContentAlignment="Center"/>
 			</Grid>
 			<Grid HorizontalAlignment="Center" VerticalAlignment="Center" MinHeight="32" MinWidth="32" Grid.Row="2" >
-				<Label Content="{Binding Name}" VerticalContentAlignment="Center"/>
+				<Label Content="{Binding PlayerName}" VerticalContentAlignment="Center"/>
 			</Grid>
 			<Grid HorizontalAlignment="Center"  Grid.Row="3" MinHeight="32" MinWidth="200"  VerticalAlignment="Center">
 				<Label Content="{Binding Captain}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
