@@ -25,9 +25,6 @@ namespace WorldCup.Net_WInforms
 
 
         }
-        int newSortColumn;
-        ListSortDirection newColumnDirection = ListSortDirection.Ascending;
-
         private void SetupPanelsDragAndDrop(List<FlowLayoutPanel> list)
         {
             foreach (var pnl in list)
@@ -100,15 +97,12 @@ namespace WorldCup.Net_WInforms
                
                 case DialogResult.Cancel:
                     return;
-                    break;
                 case DialogResult.Yes:
                     break;
                 case DialogResult.No:
                     return;
-                    break;
                 default:
                     return;
-                    break;
             }
 
             FillFavoritePlayersFromCurrentState();

@@ -1,0 +1,112 @@
+﻿<Window x:Class="WorldCup.Net_WPF.MatchupDetails"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WorldCup.Net_WPF"
+        mc:Ignorable="d"
+        Title="MatchupDetails" Height="450" Width="800">
+	<Grid>
+		<StackPanel x:Name="TeamDataStack" Margin="10,10,0,10" HorizontalAlignment="Left" MinWidth="250">
+			<Label x:Name="lblTeamCountry" Content="{Binding Country}"/>
+			<Label x:Name="lblFifaCode" Content="{Binding FifaCode}"/>
+			<Grid Height="100">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="1*"></ColumnDefinition>
+					<ColumnDefinition Width="1*"></ColumnDefinition>
+					<ColumnDefinition Width="1*"></ColumnDefinition>
+					<ColumnDefinition Width="1*"></ColumnDefinition>
+
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="1*"></RowDefinition>
+					<RowDefinition Height="1*"></RowDefinition>
+
+				</Grid.RowDefinitions>
+				<Label Content="{local:Loc GamesPlayed}"></Label>
+				<Label Grid.Column="1" Content="{local:Loc Wins}"></Label>
+				<Label Grid.Column="2" Content="{local:Loc Loses}"></Label>
+				<Label Grid.Column="3" Content="{local:Loc Draws}"></Label>
+				<Label Grid.Row="1" x:Name="GamesPlayedScore" Content="{Binding GamesPlayed}"></Label>
+				<Label Grid.Row="1" Grid.Column="1" x:Name="GamesWonScore" Content="{Binding Wins}"></Label>
+				<Label Grid.Row="1" Grid.Column="2" x:Name="GamesLostScore" Content="{Binding Losses}"></Label>
+				<Label Grid.Row="1" Grid.Column="3" x:Name="GamesDrawnScore" Content="{Binding Draws}"></Label>
+
+
+
+
+
+			</Grid>
+			<Grid Height="100" Loaded="Grid_Loaded">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="1*"></ColumnDefinition>
+					<ColumnDefinition Width="1*"></ColumnDefinition>
+					<ColumnDefinition Width="1*"></ColumnDefinition>
+
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="1*"></RowDefinition>
+					<RowDefinition Height="1*"></RowDefinition>
+
+				</Grid.RowDefinitions>
+				<Label Content="{local:Loc GoalsScored}"></Label>
+				<Label Grid.Column="1" Content="{local:Loc GoalsTaken}"></Label>
+				<Label Grid.Column="2" Content="{local:Loc GoalsDiff}">
+				</Label>
+				<Label Grid.Row="1" x:Name="GoalsScoredScore" Content="{Binding GoalsFor}"></Label>
+				<Label Grid.Row="1" Grid.Column="1" x:Name="GoalsTakenScore" Content="{Binding GoalsAgainst}"></Label>
+				<Label Grid.Row="1" Grid.Column="2" x:Name="GoalsDiffScore" Content="{Binding GoalDifferential}"></Label>
+			</Grid>
+		</StackPanel>
+		<StackPanel x:Name="OppositionTeamDataStack" Margin="0,10,10,10" HorizontalAlignment="Right" RenderTransformOrigin="0.5,0.5" MinWidth="250" Loaded="OppositionTeamDataStack_Loaded">
+			<Label x:Name="lblTeamCountryop" Content="{Binding Country}"/>
+			<Label x:Name="lblFifaCodeop" Content="{Binding FifaCode}"/>
+			<Grid Height="100">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="1*"></ColumnDefinition>
+					<ColumnDefinition Width="1*"></ColumnDefinition>
+					<ColumnDefinition Width="1*"></ColumnDefinition>
+					<ColumnDefinition Width="1*"></ColumnDefinition>
+
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="1*"></RowDefinition>
+					<RowDefinition Height="1*"></RowDefinition>
+
+				</Grid.RowDefinitions>
+				<Label Content="{local:Loc GamesPlayed}"></Label>
+				<Label Grid.Column="1" Content="{local:Loc Wins}"></Label>
+				<Label Grid.Column="2" Content="{local:Loc Loses}"></Label>
+				<Label Grid.Column="3" Content="{local:Loc Draws}"></Label>
+				<Label Grid.Row="1" x:Name="GamesPlayedScoreop" Content="{Binding GamesPlayed}"></Label>
+				<Label Grid.Row="1" Grid.Column="1" x:Name="GamesWonScoreop" Content="{Binding Wins}"></Label>
+				<Label Grid.Row="1" Grid.Column="2" x:Name="GamesLostScoreop" Content="{Binding Losses}"></Label>
+				<Label Grid.Row="1" Grid.Column="3" x:Name="GamesDrawnScoreop" Content="{Binding Draws}"></Label>
+
+
+
+
+
+			</Grid>
+			<Grid Height="100" Loaded="Grid_Loaded">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="1*"></ColumnDefinition>
+					<ColumnDefinition Width="1*"></ColumnDefinition>
+					<ColumnDefinition Width="1*"></ColumnDefinition>
+
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="1*"></RowDefinition>
+					<RowDefinition Height="1*"></RowDefinition>
+
+				</Grid.RowDefinitions>
+				<Label Content="{local:Loc GoalsScored}"></Label>
+				<Label Grid.Column="1" Content="{local:Loc GoalsTaken}"></Label>
+				<Label Grid.Column="2" Content="{local:Loc GoalsDiff}"></Label>
+				<Label Grid.Row="1" x:Name="GoalsScoredScoreop" Content="{Binding GoalsFor}"></Label>
+				<Label Grid.Row="1" Grid.Column="1" x:Name="GoalsTakenScoreop" Content="{Binding GoalsAgainst}"></Label>
+				<Label Grid.Row="1" Grid.Column="2" x:Name="GoalsDiffScoreop" Content="{Binding GoalDifferential}"></Label>
+			</Grid>
+		</StackPanel>
+	</Grid>
+</Window>

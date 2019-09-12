@@ -1,0 +1,52 @@
+﻿<Window x:Class="WorldCup.Net_WPF.PlayerDetails"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WorldCup.Net_WPF"
+        mc:Ignorable="d"
+        Title="PlayerDetails" Height="450" Width="298.851">
+	<Grid>
+		<Grid HorizontalAlignment="Stretch" Height="Auto" VerticalAlignment="Stretch" Width="Auto">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="3*"></RowDefinition>
+				<RowDefinition Height="1*"></RowDefinition>
+				<RowDefinition Height="1*"></RowDefinition>
+				<RowDefinition Height="1*"></RowDefinition>
+				<RowDefinition Height="1*"></RowDefinition>
+				<RowDefinition Height="1*"></RowDefinition>
+				<RowDefinition Height="1*"></RowDefinition>
+
+			</Grid.RowDefinitions>
+			<Grid Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" MinHeight="128" MinWidth="128">
+				<Grid.Background>
+					<ImageBrush x:Name="PlayerImage" Stretch="Uniform"></ImageBrush>
+				</Grid.Background>
+
+			</Grid>
+			<Grid HorizontalAlignment="Center" VerticalAlignment="Center" MinHeight="32" MinWidth="32" Grid.Row="1" >
+				<Label Content="{Binding ShirtNumber}" VerticalContentAlignment="Center"/>
+			</Grid>
+			<Grid HorizontalAlignment="Center" VerticalAlignment="Center" MinHeight="32" MinWidth="32" Grid.Row="2" >
+				<Label Content="{Binding Name}" VerticalContentAlignment="Center"/>
+			</Grid>
+			<Grid HorizontalAlignment="Center"  Grid.Row="3" MinHeight="32" MinWidth="200"  VerticalAlignment="Center">
+				<Label Content="{Binding Captain}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+			</Grid>
+			<Grid HorizontalAlignment="Center"   Grid.Row="4" VerticalAlignment="Center" MinHeight="32" MinWidth="128" >
+				<Label Content="{Binding Position}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+			</Grid>
+			<StackPanel  Grid.Row="5" MinHeight="25" MinWidth="200" Orientation="Horizontal">
+				<Label MinWidth="120" Content="{local:Loc GoalsScored}"/>
+				<Label Content="{Binding GoalsScoredinMatch}"/>
+
+			</StackPanel>
+			<StackPanel  Grid.Row="6" MinHeight="25" MinWidth="200" Orientation="Horizontal">
+				<Label MinWidth="120" Content="{local:Loc YellowCards}"/>
+				<Label Content="{Binding YellowCards}"/>
+
+			</StackPanel>
+		</Grid>
+
+	</Grid>
+</Window>

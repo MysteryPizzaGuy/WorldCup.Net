@@ -19,6 +19,7 @@ namespace WorldCup.Net
         private const string FILEPATH = "settings.txt";
         //public static string ImageResources="WorldCup.Net.Resources";
         public static string ResourcesPath= "..\\..\\..\\PlayerImages\\";
+        public static bool Fullscreen = true;
         public static Image DefaultPlayerImage = new Bitmap((ResourcesPath + "defaultplayer.png"));
 
         public static Dictionary<string, List<string>> FavoritePlayers { get; set; } = new Dictionary<string, List<string>>();
@@ -63,6 +64,7 @@ namespace WorldCup.Net
         {
             string[] tosave = { $"LANG={AppLanguage}",
                                 $"FTC={FavoriteTeamCode}",
+                                $"FULL={Fullscreen}",
                                 };
             foreach (KeyValuePair<string, List<string>> entry in FavoritePlayers)
             {
@@ -104,6 +106,9 @@ namespace WorldCup.Net
                         break;
                     case "FTC":
                         FavoriteTeamCode = GetValueFromConfLine(line);
+                        break;
+                    case "FULL":
+                        Fullscreen = GetValueFromConfLine(line) == "1" ? true : false;
                         break;
                     default:
                         var fifacode = GetPropFromConfLine(line).Substring(GetPropFromConfLine(line).IndexOf('_') + 1);
