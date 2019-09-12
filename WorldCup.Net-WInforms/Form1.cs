@@ -95,6 +95,22 @@ namespace WorldCup.Net_WInforms
         {
             var w = (Form)sender;
             e.Cancel = true;
+            switch (MessageBox.Show(((Configuration.AppLanguage == Configuration.Language.English) ? "Are you sure you wish to exit?" : "Jeste li sigurni da zelite zatvoriti"), ((Configuration.AppLanguage == Configuration.Language.English) ? "Warning" : "Upozorenje"), MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning))
+            {
+               
+                case DialogResult.Cancel:
+                    return;
+                    break;
+                case DialogResult.Yes:
+                    break;
+                case DialogResult.No:
+                    return;
+                    break;
+                default:
+                    return;
+                    break;
+            }
+
             FillFavoritePlayersFromCurrentState();
             //Fill Favorite Team from Current State
             if (cboFavoriteTeam.SelectedItem != null)
@@ -499,5 +515,49 @@ namespace WorldCup.Net_WInforms
         {
             e.Graphics.DrawImage(bmp, 0, 0);
         }
+        void ChangeLanguage(string languagecode, Control.ControlCollection controls)
+        {
+            foreach (Control c in controls)
+            {
+                ComponentResourceManager resources = new ComponentResourceManager(typeof(Form1));
+                resources.ApplyResources(c, c.Name, System.Globalization.CultureInfo.CreateSpecificCulture(languagecode));
+                if (c is Panel)
+                {
+                    ChangeLanguage(languagecode, c.Controls);
+                }
+            }
+        }
+        private void btnLanguageChange_Click(object sender, EventArgs e)
+        {
+            switch (MessageBox.Show(
+                         "Press 'Yes' to change your language",
+                         "Language Option", MessageBoxButtons.YesNoCancel))
+            {
+                case System.Windows.Forms.DialogResult.Yes:
+                    if (WorldCup.Net.Configuration.AppLanguage==Configuration.Language.Croatian)
+                    {
+                        System.Threading.Thread.CurrentThread.CurrentUICulture =
+                        System.Globalization.CultureInfo.CreateSpecificCulture("");
+                        WorldCup.Net.Configuration.AppLanguage = WorldCup.Net.Configuration.Language.English;
+                        Configuration.AppLanguage = Configuration.Language.English;
+                        ChangeLanguage("", this.Controls);
+                    }
+                    else
+                    {
+                        System.Threading.Thread.CurrentThread.CurrentUICulture =
+                        System.Globalization.CultureInfo.CreateSpecificCulture("hr");
+                        WorldCup.Net.Configuration.AppLanguage = WorldCup.Net.Configuration.Language.Croatian;
+                        Configuration.AppLanguage = Configuration.Language.Croatian;
+                        ChangeLanguage("hr", this.Controls);
+                    }
+
+
+                    break;
+                case System.Windows.Forms.DialogResult.No:
+                    break;
+            }
+        }
+
+
     }
 }

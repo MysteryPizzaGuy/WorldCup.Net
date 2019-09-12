@@ -44,6 +44,7 @@
             this.button3 = new System.Windows.Forms.Button();
             this.PrintPlayerRankings = new System.Drawing.Printing.PrintDocument();
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
+            this.btnChangeLanguage = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.tcRankings.SuspendLayout();
             this.tabPlayerRankings.SuspendLayout();
@@ -54,8 +55,8 @@
             // 
             // cboFavoriteTeam
             // 
-            this.cboFavoriteTeam.FormattingEnabled = true;
             resources.ApplyResources(this.cboFavoriteTeam, "cboFavoriteTeam");
+            this.cboFavoriteTeam.FormattingEnabled = true;
             this.cboFavoriteTeam.Name = "cboFavoriteTeam";
             this.cboFavoriteTeam.DropDown += new System.EventHandler(this.cboFavoriteTeam_DropDownAsync);
             // 
@@ -68,14 +69,14 @@
             // 
             // pnlPlayers
             // 
-            this.pnlPlayers.AllowDrop = true;
             resources.ApplyResources(this.pnlPlayers, "pnlPlayers");
+            this.pnlPlayers.AllowDrop = true;
             this.pnlPlayers.Name = "pnlPlayers";
             // 
             // pnlFavoritePlayers
             // 
-            this.pnlFavoritePlayers.AllowDrop = true;
             resources.ApplyResources(this.pnlFavoritePlayers, "pnlFavoritePlayers");
+            this.pnlFavoritePlayers.AllowDrop = true;
             this.pnlFavoritePlayers.Name = "pnlFavoritePlayers";
             this.pnlFavoritePlayers.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.pnlFavoritePlayers_ControlAdded);
             this.pnlFavoritePlayers.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.pnlFavoritePlayers_ControlRemoved);
@@ -89,10 +90,10 @@
             // 
             // panel1
             // 
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Controls.Add(this.btnPrint);
             this.panel1.Controls.Add(this.tcRankings);
             this.panel1.Controls.Add(this.button3);
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // btnPrint
@@ -113,33 +114,33 @@
             // 
             // tabPlayerRankings
             // 
-            this.tabPlayerRankings.Controls.Add(this.dgvPlayerRankings);
             resources.ApplyResources(this.tabPlayerRankings, "tabPlayerRankings");
+            this.tabPlayerRankings.Controls.Add(this.dgvPlayerRankings);
             this.tabPlayerRankings.Name = "tabPlayerRankings";
             this.tabPlayerRankings.UseVisualStyleBackColor = true;
             // 
             // dgvPlayerRankings
             // 
+            resources.ApplyResources(this.dgvPlayerRankings, "dgvPlayerRankings");
             this.dgvPlayerRankings.AllowUserToAddRows = false;
             this.dgvPlayerRankings.AllowUserToDeleteRows = false;
             this.dgvPlayerRankings.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            resources.ApplyResources(this.dgvPlayerRankings, "dgvPlayerRankings");
             this.dgvPlayerRankings.Name = "dgvPlayerRankings";
             this.dgvPlayerRankings.VisibleChanged += new System.EventHandler(this.dgvPlayerRankings_VisibleChanged);
             // 
             // tabMatchRankings
             // 
-            this.tabMatchRankings.Controls.Add(this.dgvMatchRankings);
             resources.ApplyResources(this.tabMatchRankings, "tabMatchRankings");
+            this.tabMatchRankings.Controls.Add(this.dgvMatchRankings);
             this.tabMatchRankings.Name = "tabMatchRankings";
             this.tabMatchRankings.UseVisualStyleBackColor = true;
             // 
             // dgvMatchRankings
             // 
+            resources.ApplyResources(this.dgvMatchRankings, "dgvMatchRankings");
             this.dgvMatchRankings.AllowUserToAddRows = false;
             this.dgvMatchRankings.AllowUserToDeleteRows = false;
             this.dgvMatchRankings.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            resources.ApplyResources(this.dgvMatchRankings, "dgvMatchRankings");
             this.dgvMatchRankings.Name = "dgvMatchRankings";
             this.dgvMatchRankings.VisibleChanged += new System.EventHandler(this.dgvMatchRankings_VisibleChangedAsync);
             // 
@@ -160,11 +161,19 @@
             this.printPreviewDialog1.Document = this.PrintPlayerRankings;
             this.printPreviewDialog1.Name = "printPreviewDialog1";
             // 
+            // btnChangeLanguage
+            // 
+            resources.ApplyResources(this.btnChangeLanguage, "btnChangeLanguage");
+            this.btnChangeLanguage.Name = "btnChangeLanguage";
+            this.btnChangeLanguage.UseVisualStyleBackColor = true;
+            this.btnChangeLanguage.Click += new System.EventHandler(this.btnLanguageChange_Click);
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.btnChangeLanguage);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.pnlPlayers);
             this.Controls.Add(this.button1);
@@ -200,6 +209,7 @@
         private System.Windows.Forms.Button btnPrint;
         private System.Drawing.Printing.PrintDocument PrintPlayerRankings;
         private System.Windows.Forms.PrintPreviewDialog printPreviewDialog1;
+        private System.Windows.Forms.Button btnChangeLanguage;
     }
 }
 
