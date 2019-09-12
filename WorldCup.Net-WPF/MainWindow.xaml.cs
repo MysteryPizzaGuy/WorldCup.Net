@@ -25,6 +25,25 @@ namespace WorldCup.Net_WPF
         TeamFifaData SelectedFavoriteTeam;
         public MainWindow()
         {
+            if (WorldCup.Net.Configuration.Exists())
+            {
+                WorldCup.Net.Configuration.ReadConfigurationFromText();
+                if (Net.Configuration.AppLanguage==Configuration.Language.Croatian)
+                {
+                    TranslationSource.Instance.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("hr");
+                }
+                else
+                {
+                    TranslationSource.Instance.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("");
+
+                }
+
+
+            }
+            else
+            {
+
+            }
             repo = RepoFactory.GenerateRepo();
             InitializeComponent();
         }
@@ -91,6 +110,7 @@ namespace WorldCup.Net_WPF
             SelectedFavoriteTeam = cboFavoriteTeam.SelectedItem as TeamFifaData;
             
             LoadOppositiontoFavorite();
+            SoccerCanvas.Children.Clear();
         }
 
         private void BtnMatchupDetails_Click(object sender, RoutedEventArgs e)
@@ -113,10 +133,13 @@ namespace WorldCup.Net_WPF
 
         private async void CboOppositeTeam_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
             if (cboOppositeTeam.SelectedIndex == -1 ||cboFavoriteTeam.SelectedIndex ==-1)
             {
                 return;
             }
+            SoccerCanvas.Children.Clear();
+
             string favoritecode = (cboFavoriteTeam.SelectedItem as TeamFifaData).FifaCode;
             string oppositioncode = (cboOppositeTeam.SelectedItem as TeamFifaData).FifaCode;
             bool home = false;
@@ -216,6 +239,11 @@ namespace WorldCup.Net_WPF
                 }
             }
 
+        }
+
+        private void MainWindowFOrm_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Configuration.SaveConfigurationToText();
         }
     }
 }

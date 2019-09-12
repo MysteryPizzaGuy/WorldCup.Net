@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WorldCup.Net_WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1200">
+        Title="MainWindow" Height="600" Width="1200" Closing="MainWindowFOrm_Closing">
 	<Grid x:Name="GridMain">
 		<ComboBox x:Name="cboFavoriteTeam" HorizontalAlignment="Left" Margin="144,10,0,0" VerticalAlignment="Top" Width="120" Loaded="CboFavoriteTeam_Loaded" SelectionChanged="CboFavoriteTeam_SelectionChanged"/>
 		<Label x:Name="lblFavoriteTeam" Content="{local:Loc FavoriteTeam}" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top" FontFamily="Segoe UI Black" FontSize="14"/>
