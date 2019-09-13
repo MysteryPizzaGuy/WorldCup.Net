@@ -23,7 +23,10 @@ namespace WorldCup.Net
 
         public async Task<IList<TeamFifaData>> FetchTeamsAsync()
         {
+            try
+            {
 
+          
             if (TeamList ==null)
             {
                 if (TeamFifaDataTarget != String.Empty)
@@ -50,55 +53,89 @@ namespace WorldCup.Net
                 this.TeamList = teamfifadata;
             }
             return this.TeamList;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
         public async Task<IList<TeamMatchesData>> FetchTeamMatchesDataAsyc(string FifaCode)
         {
-            if (TeamMatchesData == null)
-            {
-                TeamMatchesData = new Dictionary<string, IList<Net.TeamMatchesData>>();
-            }
-            if (!TeamMatchesData.ContainsKey(FifaCode))
-            {
-                if (TeamMatchesDataURL != String.Empty)
-                {
-                    var AimedTarget = TeamMatchesDataURL + FifaCode;
-                    client = new RestClient(AimedTarget);
-                }
-                else
-                {
-                    throw new Exception("Target not determined!");
-                }
-                var request = new RestRequest();
-                var response = await client.ExecuteTaskAsync(request);
-                IList<TeamMatchesData> deser = await Task.Run(() => Newtonsoft.Json.JsonConvert.DeserializeObject<IList<TeamMatchesData>>(response.Content));
-                TeamMatchesData[FifaCode] = deser;
-                var firstmatch = TeamMatchesData[FifaCode].First();
-                TeamStatistics teamstatistics;
-                if (firstmatch.HomeTeam.Code == FifaCode)
-                {
-                    teamstatistics = firstmatch.HomeTeamStatistics;
-                }
-                else
-                {
-                    teamstatistics = firstmatch.AwayTeamStatistics;
-                }
-                var allplayers =teamstatistics.StartingEleven.Union(teamstatistics.Substitutes);
-                allplayers.ToList().ForEach((x)=>LoadSavedFavPlayers(x,FifaCode));
-                allplayers.ToList().ForEach((x) => x.PlayerImage=Configuration.LoadImageFromResources(x));
 
-            }
+            try
+            {
+                if (TeamMatchesData == null)
+                {
+                    TeamMatchesData = new Dictionary<string, IList<Net.TeamMatchesData>>();
+                }
+                if (!TeamMatchesData.ContainsKey(FifaCode))
+                {
+                    if (TeamMatchesDataURL != String.Empty)
+                    {
+                        var AimedTarget = TeamMatchesDataURL + FifaCode;
+                        client = new RestClient(AimedTarget);
+                    }
+                    else
+                    {
+                        throw new Exception("Target not determined!");
+                    }
+                    var request = new RestRequest();
+                    var response = await client.ExecuteTaskAsync(request);
+                    IList<TeamMatchesData> deser = await Task.Run(() => Newtonsoft.Json.JsonConvert.DeserializeObject<IList<TeamMatchesData>>(response.Content));
+                    TeamMatchesData[FifaCode] = deser;
+                    var firstmatch = TeamMatchesData[FifaCode].First();
+                    TeamStatistics teamstatistics;
+                    if (firstmatch.HomeTeam.Code == FifaCode)
+                    {
+                        teamstatistics = firstmatch.HomeTeamStatistics;
+                    }
+                    else
+                    {
+                        teamstatistics = firstmatch.AwayTeamStatistics;
+                    }
+                    var allplayers = teamstatistics.StartingEleven.Union(teamstatistics.Substitutes);
+                    allplayers.ToList().ForEach((x) => LoadSavedFavPlayers(x, FifaCode));
+                    foreach (var Match in TeamMatchesData[FifaCode])
+                    {
+                        if (Match.AwayTeam.Code == FifaCode)
+                        {
+                            Match.AwayTeamStatistics.StartingEleven.Union(Match.AwayTeamStatistics.Substitutes).ToList().ForEach((x) => x.PlayerImage = Configuration.LoadImageFromResources(x));
+                        }
+                        else
+                        {
+                            Match.HomeTeamStatistics.StartingEleven.Union(Match.HomeTeamStatistics.Substitutes).ToList().ForEach((x) => x.PlayerImage =Configuration.LoadImageFromResources(x));
+                        }
 
-            return TeamMatchesData[FifaCode];
+                    }
+
+                }
+
+                return TeamMatchesData[FifaCode];
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         void LoadSavedFavPlayers(TeamMatchesDataPlayer player,string FifaCode)
         {
-            if (Configuration.FavoritePlayers.ContainsKey(FifaCode))
+
+            try
             {
-                if (Configuration.FavoritePlayers[FifaCode].Contains(player.Name))
+                if (Configuration.FavoritePlayers.ContainsKey(FifaCode))
                 {
-                    player.isFavorite = true;
+                    if (Configuration.FavoritePlayers[FifaCode].Contains(player.Name))
+                    {
+                        player.isFavorite = true;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
             }
 
         }

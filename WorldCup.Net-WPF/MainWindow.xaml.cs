@@ -25,42 +25,52 @@ namespace WorldCup.Net_WPF
         TeamFifaData SelectedFavoriteTeam;
         public MainWindow()
         {
-            if (WorldCup.Net.Configuration.Exists())
-            {
-                WorldCup.Net.Configuration.ReadConfigurationFromText();
-                if (Net.Configuration.AppLanguage==Configuration.Language.Croatian)
-                {
-                    TranslationSource.Instance.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("hr");
-                }
-                else
-                {
-                    TranslationSource.Instance.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("");
+            //if (WorldCup.Net.Configuration.Exists())
+            //{
+            //    WorldCup.Net.Configuration.ReadConfigurationFromText(false);
+            //    if (Net.Configuration.AppLanguage==Configuration.Language.Croatian)
+            //    {
+            //        TranslationSource.Instance.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("hr");
+            //    }
+            //    else
+            //    {
+            //        TranslationSource.Instance.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("");
 
-                }
+            //    }
 
 
-            }
-            else
-            {
+            //}
+            //else
+            //{
 
-            }
+            //}
             repo = RepoFactory.GenerateRepo();
+            
             InitializeComponent();
         }
 
         private async Task<List<TeamMatchesDataPlayer>> ParsePlayersFromRepoAsync(string teamfifacode)
         {
-            var teamdatafetched = (await repo.FetchTeamMatchesDataAsyc(teamfifacode)).First();
-            Net.TeamStatistics teamstatistics;
-            if (teamdatafetched.HomeTeam.Code == teamfifacode)
+            try
             {
-                teamstatistics = teamdatafetched.HomeTeamStatistics;
+                var teamdatafetched = (await repo.FetchTeamMatchesDataAsyc(teamfifacode)).First();
+                Net.TeamStatistics teamstatistics;
+                if (teamdatafetched.HomeTeam.Code == teamfifacode)
+                {
+                    teamstatistics = teamdatafetched.HomeTeamStatistics;
+                }
+                else
+                {
+                    teamstatistics = teamdatafetched.AwayTeamStatistics;
+                }
+                return teamstatistics.StartingEleven.Union(teamstatistics.Substitutes).ToList();
             }
-            else
+            catch (Exception ex)
             {
-                teamstatistics = teamdatafetched.AwayTeamStatistics;
+
+                MessageBox.Show(ex.Message);
+                throw;
             }
-            return teamstatistics.StartingEleven.Union(teamstatistics.Substitutes).ToList();
         }
 
 
@@ -70,12 +80,44 @@ namespace WorldCup.Net_WPF
             {
                 var Teams = await repo.FetchTeamsAsync();
                 cboFavoriteTeam.ItemsSource = Teams;
-                if (Configuration.FavoriteTeamCode != null)
+                if (Configuration.FavoriteTeamCode != String.Empty && Configuration.FavoriteTeamCode !=null && Configuration.FavoriteTeamCode!= "")
                 {
                     SelectedFavoriteTeam = Teams.Where(x => x.FifaCode == Configuration.FavoriteTeamCode).First();
                     cboFavoriteTeam.SelectedItem = SelectedFavoriteTeam;
                     LoadOppositiontoFavorite();
                 }
+                else
+                {
+                    cboFavoriteTeam.SelectedIndex = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private async void LoadOppositiontoFavorite()
+        {
+
+            try
+            {
+                var Teams = await repo.FetchTeamsAsync();
+                var Teammatches = await repo.FetchTeamMatchesDataAsyc(SelectedFavoriteTeam.FifaCode);
+                IList<TeamFifaData> Opposition = new List<TeamFifaData>();
+                foreach (var Match in Teammatches)
+                {
+                    if (Match.AwayTeam.Code != SelectedFavoriteTeam.FifaCode)
+                    {
+                        Opposition.Add(Teams.Where(x => Match.AwayTeam.Code == x.FifaCode).First());
+                    }
+                    else
+                    {
+                        Opposition.Add(Teams.Where(x => Match.HomeTeam.Code == x.FifaCode).First());
+                    }
+                }
+                cboOppositeTeam.ItemsSource = Opposition;
             }
             catch (Exception ex)
             {
@@ -85,30 +127,10 @@ namespace WorldCup.Net_WPF
 
         }
 
-        private async void LoadOppositiontoFavorite()
-        {
-            var Teams = await repo.FetchTeamsAsync();
-            var Teammatches = await repo.FetchTeamMatchesDataAsyc(SelectedFavoriteTeam.FifaCode);
-            IList<TeamFifaData> Opposition = new List<TeamFifaData>();
-            foreach (var Match in Teammatches)
-            {
-                if (Match.AwayTeam.Code != SelectedFavoriteTeam.FifaCode)
-                {
-                    Opposition.Add(Teams.Where(x => Match.AwayTeam.Code == x.FifaCode).First());
-                }
-                else
-                {
-                    Opposition.Add(Teams.Where(x => Match.HomeTeam.Code == x.FifaCode).First());
-                }
-            }
-            cboOppositeTeam.ItemsSource = Opposition;
-
-        }
-
         private void CboFavoriteTeam_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SelectedFavoriteTeam = cboFavoriteTeam.SelectedItem as TeamFifaData;
-            
+            Configuration.FavoriteTeamCode = (cboFavoriteTeam.SelectedItem as TeamFifaData).FifaCode;
             LoadOppositiontoFavorite();
             SoccerCanvas.Children.Clear();
         }
@@ -175,6 +197,7 @@ namespace WorldCup.Net_WPF
 
             foreach (var player in fav.StartingEleven)
             {
+                
                 PlayerDisplay pd = new PlayerDisplay(player,MatchData);
                 SoccerCanvas.Children.Add(pd);
                 switch (player.Position)
@@ -243,7 +266,21 @@ namespace WorldCup.Net_WPF
 
         private void MainWindowFOrm_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            Configuration.SaveConfigurationToText();
+            MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure?", "Delete Confirmation", System.Windows.MessageBoxButton.YesNoCancel);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                Configuration.SaveConfigurationToText(false);
+            }
+            else
+            {
+                e.Cancel = true;
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            SettingsWindow s = new SettingsWindow();
+            s.Show();
         }
     }
 }

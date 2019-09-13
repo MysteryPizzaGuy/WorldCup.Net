@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WorldCup.Net_WPF"
         mc:Ignorable="d"
-        Title="Settings" Height="336.957" Width="210.87">
+        Title="{local:Loc Settings}" Height="336.957" Width="210.87">
 	<StackPanel Margin="0" MinWidth="200" MinHeight="300">
 		<Label x:Name="lblLanguage" Content="{local:Loc Language}" Margin="0,15,0,0" HorizontalAlignment="Center" FontWeight="Bold" FontFamily="Segoe UI Black" FontSize="16"/>
 		<ComboBox x:Name="cboLanguage" Margin="0,5,0,0" Loaded="CboLanguage_Loaded">

@@ -39,7 +39,7 @@ namespace WorldCup.Net_WInforms
             RefreshControlData(player);
             if (this.player.isFavorite)
             {
-                MenuItemFavorite.Text="Remove From Favorites";
+                MenuItemFavorite.Text = "Remove From Favorites";
             }
         }
 
@@ -178,12 +178,12 @@ namespace WorldCup.Net_WInforms
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MenuItemFavorite});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 48);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(162, 26);
             // 
             // MenuItemFavorite
             // 
             this.MenuItemFavorite.Name = "MenuItemFavorite";
-            this.MenuItemFavorite.Size = new System.Drawing.Size(180, 22);
+            this.MenuItemFavorite.Size = new System.Drawing.Size(161, 22);
             this.MenuItemFavorite.Text = "Add To Favorites";
             this.MenuItemFavorite.Click += new System.EventHandler(this.MenuItemFavorite_Click);
             // 
@@ -199,6 +199,7 @@ namespace WorldCup.Net_WInforms
             this.Controls.Add(this.picPlayer);
             this.Name = "PlayerControl";
             this.Size = new System.Drawing.Size(369, 60);
+            this.ParentChanged += new System.EventHandler(this.PlayerControl_ParentChanged);
             ((System.ComponentModel.ISupportInitialize)(this.picFavoriteStar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picPlayer)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
@@ -238,6 +239,15 @@ namespace WorldCup.Net_WInforms
                     }
                 }
             }
+        }
+
+        private void PlayerControl_ParentChanged(object sender, EventArgs e)
+        {
+            if (this.player.isFavorite)
+            {
+                MenuItemFavorite.Text = "Remove From Favorites";
+            }
+            else { MenuItemFavorite.Text = "Add Favorites"; }
         }
     }
 }

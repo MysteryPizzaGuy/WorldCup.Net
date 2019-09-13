@@ -28,10 +28,11 @@ namespace WorldCup.Net_WPF
             Player = player;
             this.TeamMatchData = TeamMatchData;
             InitializeComponent();
+
             DataContainer.DataContext = Player;
             using (var ms = new MemoryStream())
             {
-                if (Player.PlayerImage != null)
+                if (player.PlayerImage != null)
                 {
                     Player.PlayerImage.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
                     ms.Position = 0;

@@ -123,16 +123,61 @@
   <data name="Croatian" xml:space="preserve">
     <value>Hrvatski</value>
   </data>
+  <data name="Draws" xml:space="preserve">
+    <value>Izjednacenja</value>
+  </data>
   <data name="English" xml:space="preserve">
     <value>Engleski</value>
+  </data>
+  <data name="FavoriteTeam" xml:space="preserve">
+    <value>Omiljeni Tim</value>
+  </data>
+  <data name="GamesPlayed" xml:space="preserve">
+    <value>Odigranih Igara</value>
+  </data>
+  <data name="GoalsDiff" xml:space="preserve">
+    <value>Razlika Golova</value>
+  </data>
+  <data name="GoalsScored" xml:space="preserve">
+    <value>Zabijenih Golova</value>
+  </data>
+  <data name="GoalsTaken" xml:space="preserve">
+    <value>Pokusaja na Gol</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>Jezik</value>
   </data>
+  <data name="Loses" xml:space="preserve">
+    <value>Poraza</value>
+  </data>
+  <data name="MainWindow" xml:space="preserve">
+    <value>Glavni Prozor</value>
+  </data>
+  <data name="Matchup" xml:space="preserve">
+    <value>Mec</value>
+  </data>
+  <data name="MatchupDetails" xml:space="preserve">
+    <value>Detalji o Mecu</value>
+  </data>
+  <data name="OpposingTeam" xml:space="preserve">
+    <value>Suprotni Tim</value>
+  </data>
+  <data name="PlayerDetails" xml:space="preserve">
+    <value>Detalji O Igracu</value>
+  </data>
   <data name="ScreenMode" xml:space="preserve">
     <value>Mode Prozora</value>
   </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Postavke</value>
+  </data>
   <data name="TestText" xml:space="preserve">
     <value>Hrvatski Texts</value>
+  </data>
+  <data name="Wins" xml:space="preserve">
+    <value>Pobjeda</value>
+  </data>
+  <data name="YellowCards" xml:space="preserve">
+    <value>Zutih Kartona</value>
   </data>
 </root>

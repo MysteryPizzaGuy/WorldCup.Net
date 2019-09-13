@@ -111,7 +111,7 @@ namespace WorldCup.Net_WInforms
             {
                 Configuration.FavoriteTeamCode = (cboFavoriteTeam.SelectedItem as TeamFifaData).FifaCode;
             }
-            Net.Configuration.SaveConfigurationToText();
+            Net.Configuration.SaveConfigurationToText(true);
             e.Cancel = false;
         }
 
@@ -515,7 +515,7 @@ namespace WorldCup.Net_WInforms
             {
                 ComponentResourceManager resources = new ComponentResourceManager(typeof(Form1));
                 resources.ApplyResources(c, c.Name, System.Globalization.CultureInfo.CreateSpecificCulture(languagecode));
-                if (c is Panel)
+                if (c is Panel || c is TabControl)
                 {
                     ChangeLanguage(languagecode, c.Controls);
                 }

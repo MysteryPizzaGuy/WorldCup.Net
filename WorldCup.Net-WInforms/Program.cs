@@ -21,7 +21,7 @@ namespace WorldCup.Net_WInforms
             Application.SetCompatibleTextRenderingDefault(false);
             if (WorldCup.Net.Configuration.Exists())
             {
-                WorldCup.Net.Configuration.ReadConfigurationFromText();
+                WorldCup.Net.Configuration.ReadConfigurationFromText(true);
                 LanguageAssign(Net.Configuration.AppLanguage);
 
 

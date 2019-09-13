@@ -16,10 +16,11 @@ namespace WorldCup.Net
         public enum Language { English, Croatian }
         public static Language AppLanguage { get; set; }
         public static string FavoriteTeamCode { get; set; }
-        private const string FILEPATH = "settings.txt";
+        private const string FILEPATH = "..\\..\\..\\settings.txt";
+        private const string FILEPATHFAV = "..\\..\\..\\settingsfav.txt";
         //public static string ImageResources="WorldCup.Net.Resources";
         public static string ResourcesPath= "..\\..\\..\\PlayerImages\\";
-        public static bool Fullscreen = true;
+        public static bool Fullscreen = false;
         public static Image DefaultPlayerImage = new Bitmap((ResourcesPath + "defaultplayer.png"));
 
         public static Dictionary<string, List<string>> FavoritePlayers { get; set; } = new Dictionary<string, List<string>>();
@@ -60,25 +61,29 @@ namespace WorldCup.Net
             }
         }
 
-        static public void SaveConfigurationToText()
+        static public void SaveConfigurationToText(bool savefavoriteplayers)
         {
             string[] tosave = { $"LANG={AppLanguage}",
                                 $"FTC={FavoriteTeamCode}",
                                 $"FULL={Fullscreen}",
                                 };
-            foreach (KeyValuePair<string, List<string>> entry in FavoritePlayers)
+            if (savefavoriteplayers)
             {
-                var savelist = tosave.ToList();
-                StringBuilder ss = new StringBuilder();
-                foreach (var item in entry.Value)
+                foreach (KeyValuePair<string, List<string>> entry in FavoritePlayers)
                 {
-                    ss.Append(item);
-                    ss.Append(';');
-                }
-                savelist.Add($"FP_{entry.Key}={ss.ToString()}");
-                tosave = savelist.ToArray();
+                    var savelist = new List<string>();
+                    StringBuilder ss = new StringBuilder();
+                    foreach (var item in entry.Value)
+                    {
+                        ss.Append(item);
+                        ss.Append(';');
+                    }
+                    savelist.Add($"FP_{entry.Key}={ss.ToString()}");
+                    var savearray = savelist.ToArray();
+                    File.WriteAllLines(FILEPATHFAV, savearray);
 
-                
+
+                }
             }
             File.WriteAllLines(FILEPATH, tosave);
 
@@ -87,40 +92,54 @@ namespace WorldCup.Net
         {
             return File.Exists(FILEPATH);
         }
-        static public void ReadConfigurationFromText()
+        static public void ReadConfigurationFromText(bool readfavorites)
         {
-            string[] confLines = File.ReadAllLines(FILEPATH);
-
-            foreach(string line in confLines)
+            if (File.Exists(FILEPATH))
             {
-                switch (GetPropFromConfLine(line))
+                string[] confLines = File.ReadAllLines(FILEPATH);
+
+
+                foreach (string line in confLines)
                 {
-                    case "LANG":
-                        if (GetValueFromConfLine(line) == "Croatian")
-                        {
-                            AppLanguage = Language.Croatian;
-                        }
-                        else {
-                            AppLanguage = Language.English;
-                        }
-                        break;
-                    case "FTC":
-                        FavoriteTeamCode = GetValueFromConfLine(line);
-                        break;
-                    case "FULL":
-                        Fullscreen = GetValueFromConfLine(line) == "1" ? true : false;
-                        break;
-                    default:
-                        var fifacode = GetPropFromConfLine(line).Substring(GetPropFromConfLine(line).IndexOf('_') + 1);
-                        FavoritePlayers[fifacode] = new List<string>();
-                        foreach (var item in GetValueFromConfLine(line).Split(new char[] { ';' },StringSplitOptions.RemoveEmptyEntries ))
-                        {
-                            FavoritePlayers[fifacode].Add(item);
-                        }
-                        break;
+                    switch (GetPropFromConfLine(line))
+                    {
+                        case "LANG":
+                            if (GetValueFromConfLine(line) == "Croatian")
+                            {
+                                AppLanguage = Language.Croatian;
+                            }
+                            else
+                            {
+                                AppLanguage = Language.English;
+                            }
+                            break;
+                        case "FTC":
+                            FavoriteTeamCode = GetValueFromConfLine(line);
+                            break;
+                        case "FULL":
+                            Fullscreen = GetValueFromConfLine(line) == "1" ? true : false;
+                            break;
+                        default:
+                            break;
+                    }
+                } 
+            }
+            if (readfavorites && File.Exists(FILEPATHFAV))
+            {
+
+                string[] favLines = File.ReadAllLines(FILEPATHFAV);
+                foreach (var line in favLines)
+                {
+                    var fifacode = GetPropFromConfLine(line).Substring(GetPropFromConfLine(line).IndexOf('_') + 1);
+                    FavoritePlayers[fifacode] = new List<string>();
+                    foreach (var item in GetValueFromConfLine(line).Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries))
+                    {
+                        FavoritePlayers[fifacode].Add(item);
+                    }
+                    break;
                 }
             }
-
+           
             
         }
         static string GetValueFromConfLine(string confLine)=> confLine.Substring(confLine.IndexOf('=') + 1);

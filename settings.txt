@@ -1,0 +1,3 @@
+LANG=English
+FTC=SRB
+FULL=False

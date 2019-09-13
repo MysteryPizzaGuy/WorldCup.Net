@@ -5,7 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WorldCup.Net_WPF"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Height="150" MouseDoubleClick="UserControl_MouseDoubleClick">
+             d:DesignHeight="450" d:DesignWidth="800" Height="150" MouseDoubleClick="UserControl_MouseDoubleClick" RenderTransformOrigin="0.5,0.5">
+
+	
 	<Grid x:Name="DataContainer">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="1*"></ColumnDefinition>

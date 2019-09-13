@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WorldCup.Net_WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1200" Closing="MainWindowFOrm_Closing">
+        Title="{local:Loc MainWindow}" Height="600" Width="1200" Closing="MainWindowFOrm_Closing">
 	<Grid x:Name="GridMain">
 		<ComboBox x:Name="cboFavoriteTeam" HorizontalAlignment="Left" Margin="144,10,0,0" VerticalAlignment="Top" Width="120" Loaded="CboFavoriteTeam_Loaded" SelectionChanged="CboFavoriteTeam_SelectionChanged"/>
 		<Label x:Name="lblFavoriteTeam" Content="{local:Loc FavoriteTeam}" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top" FontFamily="Segoe UI Black" FontSize="14"/>
@@ -20,7 +20,8 @@
 				</DataTemplate>
 			</ComboBox.ItemTemplate>
 		</ComboBox>
-		<Button x:Name="btnMatchupDetails" Content="{local:Loc MatchupDetails}" HorizontalAlignment="Center" Margin="0,9,0,0" VerticalAlignment="Top" MinWidth="100" Click="BtnMatchupDetails_Click"/>
+		<Button x:Name="btnMatchupDetails" Content="{local:Loc MatchupDetails}" HorizontalAlignment="Center" Margin="0,9,0,0" VerticalAlignment="Top" MinWidth="100" Click="BtnMatchupDetails_Click">
+		</Button>
 		<Grid x:Name="SoccerCanvas" Margin="0,60,0,0" Loaded="Canvas_Loaded" SizeChanged="Canvas_SizeChanged">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="1*">
@@ -76,5 +77,6 @@
 			
 		</Grid>
 		<Label x:Name="TestLabl" Content="{Binding ImageWidth}" HorizontalAlignment="Left" Margin="730,8,0,0" VerticalAlignment="Top"/>
+		<Button Content="{local:Loc Settings}" HorizontalAlignment="Left" Margin="745,8,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
 	</Grid>
 </Window>

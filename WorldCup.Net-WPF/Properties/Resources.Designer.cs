@@ -61,7 +61,7 @@ namespace WorldCup.Net_WPF.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hey,It&apos;s working.
+        ///   Looks up a localized string similar to Submit.
         /// </summary>
         internal static string ButtonText {
             get {
@@ -160,6 +160,24 @@ namespace WorldCup.Net_WPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Main Window.
+        /// </summary>
+        internal static string MainWindow {
+            get {
+                return ResourceManager.GetString("MainWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Matchup.
+        /// </summary>
+        internal static string Matchup {
+            get {
+                return ResourceManager.GetString("Matchup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Matchup Details.
         /// </summary>
         internal static string MatchupDetails {
@@ -178,11 +196,29 @@ namespace WorldCup.Net_WPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Player Details.
+        /// </summary>
+        internal static string PlayerDetails {
+            get {
+                return ResourceManager.GetString("PlayerDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Screen Mode.
         /// </summary>
         internal static string ScreenMode {
             get {
                 return ResourceManager.GetString("ScreenMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        internal static string Settings {
+            get {
+                return ResourceManager.GetString("Settings", resourceCulture);
             }
         }
         

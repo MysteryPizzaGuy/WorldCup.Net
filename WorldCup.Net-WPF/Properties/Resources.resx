@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ButtonText" xml:space="preserve">
-    <value>Hey,It's working</value>
+    <value>Submit</value>
   </data>
   <data name="Croatian" xml:space="preserve">
     <value>Croatian</value>
@@ -150,14 +150,26 @@
   <data name="Loses" xml:space="preserve">
     <value>Loses</value>
   </data>
+  <data name="MainWindow" xml:space="preserve">
+    <value>Main Window</value>
+  </data>
+  <data name="Matchup" xml:space="preserve">
+    <value>Matchup</value>
+  </data>
   <data name="MatchupDetails" xml:space="preserve">
     <value>Matchup Details</value>
   </data>
   <data name="OpposingTeam" xml:space="preserve">
     <value>Opposing Team</value>
   </data>
+  <data name="PlayerDetails" xml:space="preserve">
+    <value>Player Details</value>
+  </data>
   <data name="ScreenMode" xml:space="preserve">
     <value>Screen Mode</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
   </data>
   <data name="TestText" xml:space="preserve">
     <value>English Text</value>
